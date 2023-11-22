@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
         },
         initialRoute: '/',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.deepPurple, primary: Colors.black),
           useMaterial3: true,
         ));
   }
