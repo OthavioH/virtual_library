@@ -21,41 +21,31 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: const Text('Virtual Library',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white)),
-          centerTitle: true,
-          backgroundColor: Colors.deepPurple),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: StreamBuilder<HomeState>(
-          stream: _bloc.getBookListStream,
-          builder: (BuildContext context, AsyncSnapshot<HomeState> snapshot) {
-            if (snapshot.data is SuccessHomeState) {
-              final bookList = (snapshot.data as SuccessHomeState).bookList;
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 0.6,
-                ),
-                shrinkWrap: true,
-                itemCount: bookList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return BookItem(book: bookList[index]);
-                },
-              );
-            } else if (snapshot.data is ErrorHomeState) {
-              final message = (snapshot.data as ErrorHomeState).message;
-              return Center(child: Text(message));
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: StreamBuilder<HomeState>(
+        stream: _bloc.getBookListStream,
+        builder: (BuildContext context, AsyncSnapshot<HomeState> snapshot) {
+          if (snapshot.data is SuccessHomeState) {
+            final bookList = (snapshot.data as SuccessHomeState).bookList;
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 0.6,
+              ),
+              shrinkWrap: true,
+              itemCount: bookList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return BookItem(book: bookList[index]);
+              },
+            );
+          } else if (snapshot.data is ErrorHomeState) {
+            final message = (snapshot.data as ErrorHomeState).message;
+            return Center(child: Text(message));
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }
