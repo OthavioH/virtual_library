@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_library/features/home/home_page_view.dart';
+import 'package:virtual_library/shared/themes/virtual_library_colors.dart';
 import 'package:virtual_library/shared/themes/virtual_library_textstyles.dart';
 
 class TabNavigationBar extends StatefulWidget {
@@ -21,6 +22,7 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
           centerTitle: true,
           backgroundColor: Colors.deepPurple,
           bottom: const TabBar(
+            indicatorColor: VirtualLibraryColors.tabBarIndicatorColors,
             tabs: <Widget>[
               Tab(
                 child: Text(
