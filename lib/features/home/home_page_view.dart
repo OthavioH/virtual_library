@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_library/views/home/home_bloc.dart';
-import 'package:virtual_library/views/home/home_states.dart';
+import 'package:virtual_library/features/home/home_bloc.dart';
+import 'package:virtual_library/features/home/home_states.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

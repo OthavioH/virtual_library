@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:virtual_library/models/book.dart';
 import 'package:virtual_library/repository/book/book_repository.dart';
-import 'package:virtual_library/views/home/home_states.dart';
+import 'package:virtual_library/features/home/home_states.dart';
 
 class HomeBloc {
   final _bookRepository = BookRepository();
@@ -14,7 +14,6 @@ class HomeBloc {
   Sink<HomeState> get _getBookListSink => _getBookListStreamController.sink;
 
   void getBookList() async {
-    print("On Try Again");
     _getBookListSink.add(LoadingHomeState());
     try {
       final List<Book> bookList = await _bookRepository.getBooks();
