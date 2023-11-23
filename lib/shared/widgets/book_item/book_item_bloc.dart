@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:virtual_library/data/repository/book/book_repository.dart';
 import 'package:virtual_library/models/book.dart';
 import 'package:virtual_library/shared/utils/book_utils.dart';
 import 'package:virtual_library/shared/widgets/book_item/book_item_states.dart';
 import 'package:vocsy_epub_viewer/epub_viewer.dart';
 
 class BookItemBloc {
+  final _bookRepository = BookRepository();
+
   final StreamController<BookItemDownloadState> _downloadBookController =
       StreamController<BookItemDownloadState>();
 
@@ -28,12 +31,12 @@ class BookItemBloc {
   }
 
   void openBook(int? bookId) async {
-    final bookPath = await getBookPath(bookId);
-    openEpubFile(bookPath);
+    final bookPath = await _bookRepository.getBookPath(bookId);
+    openEpubFile(bookPath ?? "");
   }
 
   Future<bool> verifyBookHasDownload(int? bookId) async {
-    final path = await getBookPath(bookId);
+    final path = await _bookRepository.getBookPath(bookId);
 
     return path != null;
   }
@@ -53,8 +56,7 @@ class BookItemBloc {
             _downloadBookSink.add(BookItemDownloadLoading(progress)),
         onDownloadCompleted: (String path) async {
           _downloadBookSink.add(BookItemDownloadSuccess());
-          SharedPreferences preferences = await SharedPreferences.getInstance();
-          preferences.setString("${book.id}-Download", path);
+          await _bookRepository.saveBookPath(book.id, path);
         },
         onDownloadError: (String error) =>
             _downloadBookSink.add(BookItemDownloadError(error)),
@@ -84,11 +86,5 @@ class BookItemBloc {
 
   void dispose() {
     _downloadBookController.close();
-  }
-
-  getBookPath(int? id) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    final path = preferences.getString("$id-Download");
-    return path;
   }
 }
