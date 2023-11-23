@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:virtual_library/features/home/home_page_view.dart';
 import 'package:virtual_library/shared/themes/virtual_library_colors.dart';
 import 'package:virtual_library/shared/themes/virtual_library_textstyles.dart';
+import 'package:virtual_library/shared/widgets/tab_bar_item/tab_bar_item.dart';
 
 class TabNavigationBar extends StatefulWidget {
   const TabNavigationBar({super.key});
@@ -32,18 +33,8 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
               ),
             ),
             tabs: <Widget>[
-              Tab(
-                child: Text(
-                  'Books',
-                  style: VirtualLibraryTextStyles.tabNavigationBarItem,
-                ),
-              ),
-              Tab(
-                child: Text(
-                  'Favorites',
-                  style: VirtualLibraryTextStyles.tabNavigationBarItem,
-                ),
-              ),
+              TabBarItem(tabTitle: 'Books'),
+              TabBarItem(tabTitle: 'Favorites'),
             ],
           ),
         ),
