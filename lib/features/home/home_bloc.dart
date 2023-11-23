@@ -5,7 +5,7 @@ import 'package:virtual_library/data/repository/book/book_repository.dart';
 import 'package:virtual_library/features/home/home_states.dart';
 
 class HomeBloc {
-  final _bookRepository = BookRepository();
+  final BookRepository _bookRepository = BookRepository();
 
   final _getBookListStreamController = StreamController<HomeState>();
 
