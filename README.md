@@ -2,7 +2,7 @@
 
 ## Executando o Aplicativo pelo APK
 
-_**OBS:** O aplicativo foi criado apenas para dispositivos Android, pois, não tenho um MacBook para realizar o teste dentro de um dispositivo IOS._
+**_OBS: O aplicativo foi criado apenas para dispositivos Android, pois, não tenho um MacBook para realizar o teste dentro de um dispositivo IOS._**
 
 1 - Para executar o aplicativo, é necessário executar o arquivo .apk no dispositivo móvel escolhido.
 
