@@ -20,7 +20,7 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
           title: const Text('Virtual Library',
               style: VirtualLibraryTextStyles.appBarTitle),
           centerTitle: true,
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: VirtualLibraryColors.appPrimaryColor,
           bottom: const TabBar(
             indicatorColor: VirtualLibraryColors.tabBarIndicatorColors,
             tabs: <Widget>[
