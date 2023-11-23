@@ -17,12 +17,20 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Virtual Library',
-              style: VirtualLibraryTextStyles.appBarTitle),
+          title: const Text(
+            'Virtual Library',
+            style: VirtualLibraryTextStyles.appBarTitle,
+          ),
           centerTitle: true,
           backgroundColor: VirtualLibraryColors.appPrimaryColor,
           bottom: const TabBar(
-            indicatorColor: VirtualLibraryColors.tabBarIndicatorColors,
+            indicator: UnderlineTabIndicator(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderSide: BorderSide(
+                width: 5,
+                color: VirtualLibraryColors.tabBarIndicatorColors,
+              ),
+            ),
             tabs: <Widget>[
               Tab(
                 child: Text(

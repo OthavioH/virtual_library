@@ -27,8 +27,8 @@ class _BookItemState extends State<BookItem> {
           child: GestureDetector(
             onTap: openBook,
             child: SizedBox(
-              height: 100,
-              width: 100,
+              height: 90,
+              width: 90,
               child: Image.network(
                 widget.book.coverUrl ?? "",
                 fit: BoxFit.fill,
@@ -36,17 +36,23 @@ class _BookItemState extends State<BookItem> {
             ),
           ),
         ),
-        Text(
-          widget.book.title ?? "",
-          textAlign: TextAlign.center,
-          style: VirtualLibraryTextStyles.bookItemTitle,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
+        SizedBox(
+          width: 100,
+          child: Text(
+            widget.book.title ?? "",
+            textAlign: TextAlign.center,
+            style: VirtualLibraryTextStyles.bookItemTitle,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-        Text(
-          widget.book.author ?? "",
-          textAlign: TextAlign.center,
-          style: VirtualLibraryTextStyles.bookItemAuthor,
+        SizedBox(
+          width: 110,
+          child: Text(
+            widget.book.author ?? "",
+            textAlign: TextAlign.center,
+            style: VirtualLibraryTextStyles.bookItemAuthor,
+          ),
         )
       ],
     );
@@ -80,10 +86,10 @@ class _BookItemState extends State<BookItem> {
 
   void openBook() {
     VocsyEpub.setConfig(
-      themeColor: Colors.white,
+      themeColor: Theme.of(context).primaryColor,
       identifier: "book-${widget.book.id}",
+      nightMode: true,
       scrollDirection: EpubScrollDirection.ALLDIRECTIONS,
-      allowSharing: true,
       enableTts: true,
     );
 

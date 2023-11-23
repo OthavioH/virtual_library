@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisCount: 3,
                 childAspectRatio: 0.6,
               ),
+              padding: const EdgeInsets.only(left: 10, right: 10),
               shrinkWrap: true,
               itemCount: bookList.length,
               itemBuilder: (BuildContext context, int index) {
