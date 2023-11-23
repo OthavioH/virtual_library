@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 class Book {
@@ -10,11 +9,11 @@ class Book {
 
   Book({this.id, this.title, this.author, this.coverUrl, this.downloadUrl});
 
-  factory Book.fromRawJson(String str) => Book.fromJson(json.decode(str));
+  factory Book.fromRawJson(String str) => Book.fromMap(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toMap());
 
-  Book.fromJson(Map<String, dynamic> jsonToParse) {
+  Book.fromMap(Map<String, dynamic> jsonToParse) {
     id = jsonToParse['id'];
     title = jsonToParse['title'];
     author = jsonToParse['author'];
@@ -22,7 +21,7 @@ class Book {
     downloadUrl = jsonToParse['download_url'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;

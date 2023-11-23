@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:virtual_library/models/book.dart';
-import 'package:virtual_library/repository/book/book_repository.dart';
+import 'package:virtual_library/data/repository/book/book_repository.dart';
 import 'package:virtual_library/features/home/home_states.dart';
 
 class HomeBloc {
