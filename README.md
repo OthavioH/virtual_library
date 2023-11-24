@@ -4,9 +4,11 @@
 
 **_*OBS: O aplicativo foi criado apenas para dispositivos Android, pois, não tenho um MacBook para realizar o teste dentro de um dispositivo IOS.*_**
 
-1 - Para executar o aplicativo, é necessário executar o arquivo .apk no dispositivo móvel escolhido.
+1 - Para executar o aplicativo, é necessário executar o arquivo "virtual_library.apk" no dispositivo móvel escolhido.
 
-2 - Caso esteja utilizando um emulador, você deve mover o arquivo .apk para dentro do mesmo e executá-lo.
+**OBS: o arquivo virtual_library.apk está no diretório raiz do projeto.**
+
+2 - Caso esteja utilizando um emulador, você deve mover o arquivo para dentro do mesmo e executá-lo.
 
 3 - Ao executar o arquivo .apk, você deve finalizar a instalação do aplicativo e, assim, poderá executá-lo.
 
