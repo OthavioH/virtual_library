@@ -6,6 +6,7 @@ class Book {
   String? author;
   String? coverUrl;
   String? downloadUrl;
+  bool isFavorite = false;
 
   Book({this.id, this.title, this.author, this.coverUrl, this.downloadUrl});
 

@@ -37,7 +37,13 @@ class _HomePageState extends State<HomePage> {
               shrinkWrap: true,
               itemCount: bookList.length,
               itemBuilder: (BuildContext context, int index) {
-                return BookItem(book: bookList[index]);
+                return BookItem(
+                  book: bookList[index],
+                  onFavoriteIconPressed: () async {
+                    await _bloc.handleToggleBookFavorite(
+                        bookList[index].id, bookList[index].isFavorite);
+                  },
+                );
               },
             );
           } else if (snapshot.data is ErrorHomeState) {

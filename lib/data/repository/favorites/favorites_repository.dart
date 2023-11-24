@@ -16,9 +16,9 @@ class FavoritesRepository {
     await _editFavoriteList(favoritesList);
   }
 
-  Future<void> removeBookFromFavorites(Book book) async {
+  Future<void> removeBookFromFavorites(int? bookId) async {
     final favoritesList = await _getFavoritesFromSharedPreferences();
-    favoritesList.removeWhere((element) => element.id == book.id);
+    favoritesList.removeWhere((element) => element.id == bookId);
     await _editFavoriteList(favoritesList);
   }
 

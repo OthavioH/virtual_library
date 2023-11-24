@@ -9,7 +9,11 @@ import 'package:vocsy_epub_viewer/epub_viewer.dart';
 
 class BookItem extends StatefulWidget {
   final Book book;
-  const BookItem({Key? key, required this.book}) : super(key: key);
+  final VoidCallback onFavoriteIconPressed;
+
+  const BookItem(
+      {Key? key, required this.book, required this.onFavoriteIconPressed})
+      : super(key: key);
 
   @override
   State<BookItem> createState() => _BookItemState();
