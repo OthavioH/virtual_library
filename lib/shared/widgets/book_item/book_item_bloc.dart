@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:virtual_library/data/repository/book/book_repository.dart';
-import 'package:virtual_library/data/repository/favorites/favorites_repository.dart';
-import 'package:virtual_library/features/favorites_page/favorites_bloc.dart';
 import 'package:virtual_library/models/book.dart';
 import 'package:virtual_library/shared/utils/book_utils.dart';
 import 'package:virtual_library/shared/widgets/book_item/book_item_states.dart';
