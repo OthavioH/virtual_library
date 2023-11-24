@@ -10,16 +10,17 @@ class FavoritesRepository {
     return await _getFavoritesFromSharedPreferences();
   }
 
-  Future<void> addBookToFavorites(Book book) async {
+  Future<List<Book>> toggleBookFromFavorites(Book book) async {
     final favoritesList = await _getFavoritesFromSharedPreferences();
-    favoritesList.add(book);
-    await _editFavoriteList(favoritesList);
-  }
 
-  Future<void> removeBookFromFavorites(int? bookId) async {
-    final favoritesList = await _getFavoritesFromSharedPreferences();
-    favoritesList.removeWhere((element) => element.id == bookId);
+    if (book.isFavorite) {
+      favoritesList.removeWhere((element) => element.id == book.id);
+    } else {
+      favoritesList.add(book);
+    }
+
     await _editFavoriteList(favoritesList);
+    return favoritesList;
   }
 
   Future<List<Book>> _getFavoritesFromSharedPreferences() async {
@@ -35,6 +36,7 @@ class FavoritesRepository {
 
   Future<void> _editFavoriteList(List<Book> books) async {
     final sp = await _sharedPreferences;
-    sp.setString('favorites', jsonEncode(books));
+    final encodedBooks = books.map((book) => book.toMap()).toList();
+    sp.setString('favorites', jsonEncode(encodedBooks));
   }
 }

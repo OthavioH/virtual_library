@@ -40,8 +40,7 @@ class _HomePageState extends State<HomePage> {
                 return BookItem(
                   book: bookList[index],
                   onFavoriteIconPressed: () async {
-                    await _bloc.handleToggleBookFavorite(
-                        bookList[index].id, bookList[index].isFavorite);
+                    await _bloc.handleToggleBookFavorite(bookList[index]);
                   },
                 );
               },

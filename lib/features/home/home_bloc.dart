@@ -9,11 +9,19 @@ class HomeBloc {
   final BookRepository _bookRepository = BookRepository();
   final _favoritesRepository = FavoritesRepository();
 
-  final _getBookListStreamController = StreamController<HomeState>();
+  final _getBookListStreamController = StreamController<HomeState>.broadcast();
 
   Stream<HomeState> get getBookListStream =>
       _getBookListStreamController.stream;
   Sink<HomeState> get _getBookListSink => _getBookListStreamController.sink;
+
+  HomeState _lastState = LoadingHomeState();
+
+  HomeBloc() {
+    getBookListStream.listen((event) {
+      _lastState = event;
+    });
+  }
 
   void getBookList() async {
     _getBookListSink.add(LoadingHomeState());
@@ -25,14 +33,21 @@ class HomeBloc {
     }
   }
 
-  Future<void> handleToggleBookFavorite(int? bookId, bool isFavorite) async {
-    if (isFavorite) {
-      await _favoritesRepository.addBookToFavorites(Book(id: bookId));
-    } else {
-      await _favoritesRepository.removeBookFromFavorites(bookId);
-    }
+  Future<void> handleToggleBookFavorite(Book book) async {
+    final newFavoritesList =
+        await _favoritesRepository.toggleBookFromFavorites(book);
 
-    getBookList();
+    if (_lastState is SuccessHomeState) {
+      final currentBookList = (_lastState as SuccessHomeState).bookList;
+
+      final newBookList = currentBookList.map((book) {
+        final isFavorite =
+            newFavoritesList.any((element) => element.id == book.id);
+        return book.copyWith(isFavorite: isFavorite);
+      }).toList();
+
+      _getBookListSink.add(SuccessHomeState(bookList: newBookList));
+    }
   }
 
   void dispose() {

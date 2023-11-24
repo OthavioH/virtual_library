@@ -28,16 +28,40 @@ class _BookItemState extends State<BookItem> {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 6),
-          child: GestureDetector(
-            onTap: openBook,
-            child: SizedBox(
-              height: 90,
-              width: 90,
-              child: Image.network(
-                widget.book.coverUrl ?? "",
-                fit: BoxFit.fill,
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              GestureDetector(
+                onTap: openBook,
+                child: SizedBox(
+                  height: 90,
+                  width: 90,
+                  child: Image.network(
+                    widget.book.coverUrl ?? "",
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
-            ),
+              GestureDetector(
+                onTap: widget.onFavoriteIconPressed,
+                child: Icon(
+                  Icons.bookmark,
+                  color: widget.book.isFavorite
+                      ? VirtualLibraryColors.favoriteIconColor
+                      : Colors.black54,
+                  shadows: widget.book.isFavorite
+                      ? const [
+                          Shadow(
+                            color: Colors.black,
+                            blurRadius: 8,
+                            offset: Offset(0, 0),
+                          )
+                        ]
+                      : [],
+                  size: 30,
+                ),
+              )
+            ],
           ),
         ),
         SizedBox(

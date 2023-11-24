@@ -31,4 +31,20 @@ class Book {
     data['download_url'] = downloadUrl;
     return data;
   }
+
+  Book copyWith({
+    String? title,
+    String? author,
+    String? coverUrl,
+    String? downloadUrl,
+    bool? isFavorite,
+  }) {
+    this.title = title ?? this.title;
+    this.author = author ?? this.author;
+    this.coverUrl = coverUrl ?? this.coverUrl;
+    this.downloadUrl = downloadUrl ?? this.downloadUrl;
+    this.isFavorite = isFavorite ?? this.isFavorite;
+
+    return this;
+  }
 }

@@ -15,12 +15,15 @@ class BookRepository {
     final response = await http.get(Uri.parse(BookAPIConstants.getBooksURL));
     if (response.statusCode == 200) {
       final List<dynamic> jsonResponse = json.decode(response.body);
+
       final bookList = jsonResponse.map((e) => Book.fromMap(e)).toList();
       if (await _hasFavorites()) {
         final favorites = await _getFavoriteList();
         return _mergeWithFavorites(bookList, favorites);
       }
-      return bookList;
+
+      // Addd this line because the API is returning duplicated books
+      return bookList.toSet().toList();
     } else {
       throw Exception('Failed to load books');
     }
@@ -44,9 +47,10 @@ class BookRepository {
   }
 
   Future<bool> _hasFavorites() async {
-    final favorites = await _favoritesRepository.getFavorites();
+    final favorites = await _getFavoriteList();
 
-    return favorites.isNotEmpty;
+    // ignore: prefer_is_empty
+    return favorites.length > 0;
   }
 
   Future<void> saveBookPath(int? bookId, String bookPath) async {
