@@ -20,6 +20,7 @@ class Book {
     author = jsonToParse['author'];
     coverUrl = jsonToParse['cover_url'];
     downloadUrl = jsonToParse['download_url'];
+    isFavorite = jsonToParse['is_favorite'] ?? false;
   }
 
   Map<String, dynamic> toMap() {
@@ -29,6 +30,7 @@ class Book {
     data['author'] = author;
     data['cover_url'] = coverUrl;
     data['download_url'] = downloadUrl;
+    data['is_favorite'] = isFavorite;
     return data;
   }
 

@@ -5,6 +5,7 @@ import 'package:virtual_library/data/repository/favorites/favorites_repository.d
 import 'package:virtual_library/models/book.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtual_library/shared/constants/book_api_constants.dart';
+import 'package:virtual_library/shared/utils/book_utils.dart';
 
 class BookRepository {
   final _favoritesRepository = FavoritesRepository();
@@ -16,14 +17,16 @@ class BookRepository {
     if (response.statusCode == 200) {
       final List<dynamic> jsonResponse = json.decode(response.body);
 
-      final bookList = jsonResponse.map((e) => Book.fromMap(e)).toList();
+      final bookList = jsonResponse
+          .map((e) => Book.fromMap(e))
+          .toList()
+          .removeBooksWithDuplicatedIDs(); // Remove duplicated books because the API is returning the same book twice
       if (await _hasFavorites()) {
         final favorites = await _getFavoriteList();
         return _mergeWithFavorites(bookList, favorites);
       }
 
-      // Addd this line because the API is returning duplicated books
-      return bookList.toSet().toList();
+      return bookList;
     } else {
       throw Exception('Failed to load books');
     }
@@ -49,8 +52,7 @@ class BookRepository {
   Future<bool> _hasFavorites() async {
     final favorites = await _getFavoriteList();
 
-    // ignore: prefer_is_empty
-    return favorites.length > 0;
+    return favorites.isNotEmpty == true;
   }
 
   Future<void> saveBookPath(int? bookId, String bookPath) async {

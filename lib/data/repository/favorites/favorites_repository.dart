@@ -15,8 +15,9 @@ class FavoritesRepository {
 
     if (book.isFavorite) {
       favoritesList.removeWhere((element) => element.id == book.id);
+      book.copyWith(isFavorite: false);
     } else {
-      favoritesList.add(book);
+      favoritesList.add(book.copyWith(isFavorite: true));
     }
 
     await _editFavoriteList(favoritesList);

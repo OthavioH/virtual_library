@@ -34,16 +34,21 @@ class HomeBloc {
   }
 
   Future<void> handleToggleBookFavorite(Book book) async {
-    final newFavoritesList =
-        await _favoritesRepository.toggleBookFromFavorites(book);
+    await _favoritesRepository.toggleBookFromFavorites(book);
 
+    replaceBookList(book.id);
+  }
+
+  void replaceBookList(int? bookId) {
     if (_lastState is SuccessHomeState) {
       final currentBookList = (_lastState as SuccessHomeState).bookList;
 
       final newBookList = currentBookList.map((book) {
-        final isFavorite =
-            newFavoritesList.any((element) => element.id == book.id);
-        return book.copyWith(isFavorite: isFavorite);
+        if (book.id == bookId) {
+          return book.copyWith(isFavorite: book.isFavorite);
+        } else {
+          return book;
+        }
       }).toList();
 
       _getBookListSink.add(SuccessHomeState(bookList: newBookList));

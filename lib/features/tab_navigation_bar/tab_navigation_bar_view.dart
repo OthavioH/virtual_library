@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_library/features/favorites_page/favorites_page_view.dart';
 import 'package:virtual_library/features/home/home_page_view.dart';
 import 'package:virtual_library/shared/themes/virtual_library_colors.dart';
 import 'package:virtual_library/shared/themes/virtual_library_textstyles.dart';
@@ -41,9 +42,7 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
         body: const TabBarView(
           children: <Widget>[
             HomePage(),
-            Center(
-              child: Text('Favorites'),
-            ),
+            FavoritesPage(),
           ],
         ),
       ),

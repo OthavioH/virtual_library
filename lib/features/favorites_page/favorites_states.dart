@@ -11,7 +11,7 @@ class SuccessFavoritesState extends FavoritesState {
 }
 
 class ErrorFavoritesState extends FavoritesState {
-  final String errorMessage;
+  final String message;
 
-  ErrorFavoritesState(this.errorMessage);
+  ErrorFavoritesState(this.message);
 }
