@@ -27,3 +27,5 @@ Caso você já tenha feito o download do livro, o mesmo será exibido para você
 Para a visualização, foi utilizada a biblioteca [Vocsy Epub Viewer](https://pub.dev/packages/vocsy_epub_viewer).
 
 Para voltar para a página principal, basta pressionar o botão de "voltar" do dispositivo móvel.
+
+**OBS: Não foi possível realizar a tarefa de criação de um botão para que fosse possível voltar para a tela de ebooks por conta de uma limitação na biblioteca solicitada. Foram feitas pesquisas para tentar solucionar o problema, mas sem sucesso.**
