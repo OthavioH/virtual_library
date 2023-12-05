@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:virtual_library/shared/themes/virtual_library_colors.dart';
 
 class VirtualLibraryTextStyles {
-  static const TextStyle appBarTitle = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
+  static final TextStyle _defaultTextStyle = TextStyle(
+    fontFamily: GoogleFonts.josefinSans().fontFamily,
     color: Colors.white,
   );
 
-  static const TextStyle tabNavigationBarItem = TextStyle(
-    fontSize: 16,
+  static TextStyle appBarTitle = _defaultTextStyle.copyWith(
+    fontSize: 28,
     fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle selecedTabNavigationBarItem = _defaultTextStyle.copyWith(
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+    color: VirtualLibraryColors.appPrimaryColor,
+  );
+
+  static TextStyle unselectedTabNavigationBarItem =
+      selecedTabNavigationBarItem.copyWith(
     color: Colors.white,
   );
 
-  static const TextStyle bookItemTitle = TextStyle(
+  static TextStyle bookItemTitle = _defaultTextStyle.copyWith(
     fontWeight: FontWeight.bold,
-    fontSize: 16,
+    fontSize: 18,
   );
 
-  static const TextStyle bookItemAuthor = TextStyle(
-    fontSize: 14,
+  static TextStyle bookItemAuthor = _defaultTextStyle.copyWith(
+    fontSize: 12,
   );
 }

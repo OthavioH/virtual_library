@@ -18,29 +18,71 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Virtual Library',
-            style: VirtualLibraryTextStyles.appBarTitle,
-          ),
-          centerTitle: true,
-          backgroundColor: VirtualLibraryColors.appPrimaryColor,
-          bottom: const TabBar(
-            indicator: UnderlineTabIndicator(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(
-                width: 5,
-                color: VirtualLibraryColors.tabBarIndicatorColors,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(110),
+          child: AppBar(
+            title: Center(
+              child: Text(
+                'Virtual Library',
+                style: VirtualLibraryTextStyles.appBarTitle,
+                textAlign: TextAlign.center,
               ),
             ),
-            tabs: <Widget>[
-              TabBarItem(tabTitle: 'Books'),
-              TabBarItem(tabTitle: 'Favorites'),
-            ],
+            centerTitle: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(36),
+                bottomRight: Radius.circular(36),
+              ),
+            ),
+            backgroundColor: VirtualLibraryColors.appPrimaryColor,
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(0),
+              child: TabBar(
+                dividerColor: Colors.transparent,
+                indicator: const ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                    ),
+                  ),
+                  color: VirtualLibraryColors.white,
+                ),
+                labelStyle:
+                    VirtualLibraryTextStyles.selecedTabNavigationBarItem,
+                unselectedLabelStyle:
+                    VirtualLibraryTextStyles.unselectedTabNavigationBarItem,
+                tabs: const [
+                  Tab(
+                    child: SizedBox(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 34),
+                        child: Text(
+                          'Books',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Tab(
+                    child: SizedBox(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 34),
+                        child: Text(
+                          'Favorites',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
         body: const TabBarView(
-          children: <Widget>[
+          children: [
             HomePage(),
             FavoritesPage(),
           ],

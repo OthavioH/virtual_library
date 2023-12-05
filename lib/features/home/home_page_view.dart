@@ -22,28 +22,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 12),
       child: StreamBuilder<HomeState>(
         stream: _bloc.getBookListStream,
         builder: (BuildContext context, AsyncSnapshot<HomeState> snapshot) {
           if (snapshot.data is SuccessHomeState) {
             final bookList = (snapshot.data as SuccessHomeState).bookList;
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 0.6,
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 4 / 5,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                ),
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                shrinkWrap: true,
+                itemCount: bookList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return BookItem(
+                    book: bookList[index],
+                    onFavoriteIconPressed: () async {
+                      await _bloc.handleToggleBookFavorite(bookList[index]);
+                    },
+                  );
+                },
               ),
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              shrinkWrap: true,
-              itemCount: bookList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return BookItem(
-                  book: bookList[index],
-                  onFavoriteIconPressed: () async {
-                    await _bloc.handleToggleBookFavorite(bookList[index]);
-                  },
-                );
-              },
             );
           } else if (snapshot.data is ErrorHomeState) {
             final message = (snapshot.data as ErrorHomeState).message;

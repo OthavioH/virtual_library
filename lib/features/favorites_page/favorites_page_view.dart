@@ -36,8 +36,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 : GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 0.6,
+                      crossAxisCount: 2,
+                      childAspectRatio: 4 / 5,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
                     ),
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     shrinkWrap: true,

@@ -12,5 +12,5 @@ class VirtualLibraryColors {
 
   static const Color tabBarIndicatorColors = lightPurple;
 
-  static const Color favoriteIconColor = Colors.red;
+  static const Color favoriteIconColor = darkPurple;
 }

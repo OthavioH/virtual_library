@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:virtual_library/models/book.dart';
@@ -24,65 +26,60 @@ class _BookItemState extends State<BookItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 6),
-          child: Stack(
-            alignment: Alignment.topRight,
-            children: [
-              GestureDetector(
-                onTap: openBook,
-                child: SizedBox(
-                  height: 90,
-                  width: 90,
-                  child: Image.network(
-                    widget.book.coverUrl ?? "",
-                    fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: openBook,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            _BookItemBackgroundImage(bookCoverURL: widget.book.coverUrl ?? ""),
+            Positioned(
+              bottom: 20,
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 170),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12, right: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.book.title ?? "",
+                        textAlign: TextAlign.start,
+                        style: VirtualLibraryTextStyles.bookItemTitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        widget.book.author ?? "",
+                        textAlign: TextAlign.start,
+                        style: VirtualLibraryTextStyles.bookItemAuthor,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
                 ),
               ),
-              GestureDetector(
+            ),
+            Positioned(
+              top: 6,
+              right: 6,
+              child: GestureDetector(
                 onTap: widget.onFavoriteIconPressed,
                 child: Icon(
-                  Icons.bookmark,
-                  color: widget.book.isFavorite
-                      ? VirtualLibraryColors.favoriteIconColor
-                      : Colors.black54,
-                  shadows: widget.book.isFavorite
-                      ? const [
-                          Shadow(
-                            color: Colors.black,
-                            blurRadius: 8,
-                            offset: Offset(0, 0),
-                          )
-                        ]
-                      : [],
-                  size: 30,
+                  widget.book.isFavorite
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: VirtualLibraryColors.favoriteIconColor,
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
-        SizedBox(
-          width: 100,
-          child: Text(
-            widget.book.title ?? "",
-            textAlign: TextAlign.center,
-            style: VirtualLibraryTextStyles.bookItemTitle,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        SizedBox(
-          width: 110,
-          child: Text(
-            widget.book.author ?? "",
-            textAlign: TextAlign.center,
-            style: VirtualLibraryTextStyles.bookItemAuthor,
-          ),
-        )
-      ],
+      ),
     );
   }
 
@@ -128,5 +125,46 @@ class _BookItemState extends State<BookItem> {
   void dispose() {
     _bookItemBloc.dispose();
     super.dispose();
+  }
+}
+
+class _BookItemBackgroundImage extends StatelessWidget {
+  final String bookCoverURL;
+  const _BookItemBackgroundImage({
+    Key? key,
+    required this.bookCoverURL,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        image: DecorationImage(
+          image: NetworkImage(bookCoverURL),
+          fit: BoxFit.fill,
+        ),
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          ImageFiltered(
+            imageFilter: ImageFilter.blur(
+                sigmaX: 1, sigmaY: 1, tileMode: TileMode.decal),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.0),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.black.withOpacity(0.3),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

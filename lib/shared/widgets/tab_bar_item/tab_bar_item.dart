@@ -10,7 +10,7 @@ class TabBarItem extends StatelessWidget {
     return Tab(
       child: Text(
         tabTitle,
-        style: VirtualLibraryTextStyles.tabNavigationBarItem,
+        style: VirtualLibraryTextStyles.selecedTabNavigationBarItem,
       ),
     );
   }
